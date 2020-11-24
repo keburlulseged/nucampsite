@@ -18,7 +18,7 @@ class Main extends Component {
   }
 
   render() {
-    console.log(this.state.campsites);
+
     return (
     <div className="App">
       <Navbar dark color="primary">
