@@ -11,6 +11,24 @@ function About(props) {
         );
     });
 
+    const RenderPartner = ({ partner }) => {
+        if (partner) {
+            return (
+                <React.Fragment>
+                    <Media boolean="object" src={partner.image} alt={partner.name} width="150"/>
+                    <Media boolean="body" className="ml-5 mb-4">
+                        <Media boolean="heading">{partner.name} </Media>
+                        {partner.discription}
+                    </Media>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <div></div>
+            )
+        }
+    }
+
     return (
         <div className="container">
             <div className="row">
