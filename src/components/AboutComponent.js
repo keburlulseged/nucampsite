@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 
 function About(props) {
 
-    const partners = props.partners.map(partner => {
-        return (
-            <h5>{partner.name}</h5>
-        );
-    });
-
     const RenderPartner = ({ partner }) => {
         if (partner) {
             return (
@@ -18,7 +12,7 @@ function About(props) {
                     <Media boolean="object" src={partner.image} alt={partner.name} width="150"/>
                     <Media boolean="body" className="ml-5 mb-4">
                         <Media boolean="heading">{partner.name} </Media>
-                        {partner.discription}
+                        {partner.description}
                     </Media>
                 </React.Fragment>
             )
@@ -28,6 +22,14 @@ function About(props) {
             )
         }
     }
+
+    const partners = props.partners.map(partner => {
+        return (
+            <Media tag="li" key={partner.id}>
+                <RenderPartner partner={partner} />
+            </Media>
+        );
+    });
 
     return (
         <div className="container">
