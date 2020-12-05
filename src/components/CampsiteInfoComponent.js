@@ -5,7 +5,9 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 
 
 
-
+  const required = val => val && val.length;
+  const maxLength = len => val => !val || (val.length <= len);
+  const minLength = len => val => val && (val.length >= len);
 
 
   const RenderCampsite = ({campsite}) => {
@@ -51,7 +53,16 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
    constructor(props) {
      super(props);
      this.state = {
-       isModalOpen: false
+       rating: '',
+       author: '',
+       comment: '',
+       isModalOpen: false,
+       touched: {
+         rating: false,
+         author: false,
+         comment: false
+       }
+
      }
 
      this.toggleModal = this.toggleModal.bind(this);
@@ -82,25 +93,28 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                <Row className="form-group">
                  <Label htmlFor="rating" md={2}>Rating</Label>
                  <Col md={10}>
-                   <Control.select model=".rating" id="rating" name="rating" className="form-control" defaultValue="5">
+                   <Control.select model=".rating" id="rating" name="rating" className="form-control" defaultValue="5" validators ={{required}}>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5</option>
                    </Control.select>
+                   <Errors className="text-danger" model=".rating" show="touched" component="div" messages={{required: 'Required'}} />
                  </Col>
                </Row>
                <Row className="form-group">
                  <Label htmlFor="author" md={2}>Your Name</Label>
                  <Col md={10}>
-                   <Control.text model=".author" id="author" name="author" className="form-control" />
+                   <Control.text model=".author" id="author" name="author" className="form-control" validators={{required, minLength : minLength(2), maxLength: maxLength(15)}}/>
+                   <Errors className="text-danger" model=".author" show="touched" messages={{required: 'Required', minLength: 'Must be at least 2 characters', maxLength: 'Must be less than 15 characters'}} />
                  </Col>
                </Row>
                <Row className="form-group">
                  <Label htmlFor="comment" md={2}>Comment</Label>
                  <Col md={10}>
-                   <Control.textarea model=".comment" rows="6" id="comment" name="comment" className="form-control" />
+                   <Control.textarea model=".comment" rows="6" id="comment" name="comment" className="form-control" validators={{required}}/>
+                   <Errors className="text-danger" model=".comment" show="touched" messages={{required: "Input feild can\'t be empty"}} />
                  </Col>
                </Row>
                <Row className="form-group">
