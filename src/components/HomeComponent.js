@@ -46,7 +46,10 @@ const Home = props => {
             errMess={props.promotionErrMess}/>
         </div>
         <div className="col-md m-1">
-          <RenderCard item={props.partner} />
+          <RenderCard
+            item={props.partners}
+            isLoading={props.partnersLoading}
+            errMess={props.partnersErrMess}/>
         </div>
       </div>
     </div>
